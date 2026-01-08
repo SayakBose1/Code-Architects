@@ -2230,3 +2230,24 @@ footer .social-links li + li {
   white-space: nowrap;
 }
 
+/* =========================
+   FOOTER – MOBILE FIX
+   ========================= */
+@media (max-width: 650px) {
+  footer {
+    margin: 2em 0 1.5em;
+    padding: 0 1em;
+  }
+
+  /* Members section */
+  .footer-team ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 14px;
+  }
+
+  .footer-team li {
+    white-space: normal;
+    font-size: 12px;
+  }
+}

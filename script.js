@@ -385,6 +385,59 @@ if (contactFormElement) {
   });
 }
 
+// Add this to your script.js file
+
+// Portfolio Projects Staggered Animation
+document.addEventListener("DOMContentLoaded", () => {
+  const projects = document.querySelectorAll(".project");
+
+  // Set initial state - hidden
+  projects.forEach((project) => {
+    project.style.opacity = "0";
+    project.style.transform = "translateY(50px) scale(0.9)";
+    project.style.transition = "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)";
+  });
+
+  // Intersection Observer for animation on scroll
+  const projectObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Get the index of the project
+          const index = Array.from(projects).indexOf(entry.target);
+
+          // Animate with delay based on index
+          setTimeout(() => {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0) scale(1)";
+          }, index * 200); // 200ms delay between each project
+
+          // Unobserve after animating
+          projectObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.2, // Trigger when 20% of the element is visible
+      rootMargin: "0px 0px -50px 0px", // Start animation slightly before entering viewport
+    }
+  );
+
+  // Observe all projects
+  projects.forEach((project) => {
+    projectObserver.observe(project);
+  });
+
+  // Also animate project images on hover with a subtle bounce
+  projects.forEach((project) => {
+    const projectImg = project.querySelector(".project-img-wrapper img");
+    if (projectImg) {
+      projectImg.style.transition =
+        "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)";
+    }
+  });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const observer = new MutationObserver((mutations) => {});
 
